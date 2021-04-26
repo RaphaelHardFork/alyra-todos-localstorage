@@ -1,10 +1,20 @@
 import Todos from "./components/Todos"
+import React, { useState } from 'react'
+import './App.css'
 
 function App() {
+  const [lightMode, setLightMode] = useState(true)
+
+  const handleDarkSwitch = () => {
+    setLightMode(!lightMode)
+  }
   return (
-    <div className="container my-4">
-      <h1 className="text-center">ToDos App</h1>
-      <Todos />
+    <div className={lightMode ? "App" : "dark-app"}>
+      <div className="container">
+        <h1 className="display-1 text-center pt-3">ToDos App</h1>
+        <button onClick={handleDarkSwitch} className={lightMode ? "mode my-4" : "mode mode-dark my-4"}>{lightMode ? "Dark mode" : "Light mode"}</button>
+        <Todos lightMode={lightMode} />
+      </div>
     </div>
   )
 }

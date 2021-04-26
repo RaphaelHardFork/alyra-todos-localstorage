@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import TodosList from "./TodosList"
 import SelectTodos from "./SelectTodos"
 import AddTodoForm from "./AddTodoForm"
@@ -32,9 +32,17 @@ const initialTodos = [
   }
 ]
 
-const Todos = () => {
-  const [todos, setTodos] = useState(initialTodos)
+const Todos = ({ lightMode }) => {
+  const [todos, setTodos] = useState(() => JSON.parse(window.localStorage.getItem("my-todos")) || initialTodos)
   const [filter, setFilter] = useState("all")
+
+  // useEffect
+  useEffect(() => {
+    // changement du titre
+    document.title = todos.length ? `Vous avez ${todos.length} tâches` : `Quel est le programme ?`
+    // stockage dans le localStorage
+    window.localStorage.setItem("my-todos", JSON.stringify(todos))
+  }, [todos])
 
   const addTodo = (text) => {
     const newTodo = {
@@ -79,13 +87,13 @@ const Todos = () => {
       <h2 className="text-center">
         Ma liste de tâches ({completedCount} / {todos.length})
       </h2>
-      <SelectTodos filter={filter} setFilter={setFilter} />
+      <SelectTodos lightMode={lightMode} filter={filter} setFilter={setFilter} />
       <TodosList
         todos={filteredTodos}
         deleteTodo={deleteTodo}
         toggleCompleteTodo={toggleCompleteTodo}
       />
-      <AddTodoForm addTodo={addTodo} setFilter={setFilter} />
+      <AddTodoForm lightMode={lightMode} addTodo={addTodo} setFilter={setFilter} />
     </main>
   )
 }

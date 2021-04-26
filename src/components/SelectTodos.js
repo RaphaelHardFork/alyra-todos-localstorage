@@ -1,10 +1,15 @@
+import { useEffect } from 'react'
+
 const SelectTodos = (props) => {
-  const { filter, setFilter } = props
+  const { filter, setFilter, lightMode } = props
   const handleSelectChange = (event) => {
     setFilter(event.target.value)
   }
+  useEffect(() => {
+    console.log(lightMode)
+  }, [lightMode])
   return (
-    <div className="input-group mb-3">
+    <div className={lightMode ? "input-group mb-3" : "input-group mb-3 select-dark"}>
       <label className="input-group-text" htmlFor="select">
         Filtrer les tâches
       </label>
