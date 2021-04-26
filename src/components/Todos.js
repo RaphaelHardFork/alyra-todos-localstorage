@@ -42,7 +42,8 @@ const Todos = ({ lightMode }) => {
     document.title = todos.length ? `Vous avez ${todos.length} tâches` : `Quel est le programme ?`
     // stockage dans le localStorage
     window.localStorage.setItem("my-todos", JSON.stringify(todos))
-  }, [todos])
+    window.localStorage.setItem("light-mode", JSON.stringify(lightMode))
+  }, [todos, lightMode])
 
   const addTodo = (text) => {
     const newTodo = {

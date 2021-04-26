@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [lightMode, setLightMode] = useState(true)
+  const [lightMode, setLightMode] = useState(() => JSON.parse(window.localStorage.getItem("light-mode")))
 
   const handleDarkSwitch = () => {
     setLightMode(!lightMode)
